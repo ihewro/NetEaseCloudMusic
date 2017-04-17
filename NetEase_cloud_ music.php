@@ -7,11 +7,11 @@
   <head>
     <meta charset="utf-8">
     <!-- Material Design fonts -->
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap Material Design -->
     <link href="http://cdn.bootcss.com/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css" rel="stylesheet">
@@ -210,6 +210,8 @@
     }
 
 
+$isEchoResult = true;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input = $_POST["id"];
     $resultList = explode(",", $input);
@@ -217,6 +219,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($resultList as $key => $value) {
         if(is_numeric($value) == false){
           echo "<span class=\"label label-danger\">输入的ID含有非法字符</span> <br>";
+          $isEchoResult = false;
           break;
         }
         $musicList = get_netease_music($value,$type=$_POST["type"]);
@@ -237,8 +240,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result .= "},<br>";
         }
     }
-    echo "<div class=\"panel panel-default\"><div class=\"panel-heading\">解析地址</div><div id=\"copyme\" class=\"panel-body\">".$result."</div></div><button  data-clipboard-target=\"#copyme\" class=\"btn btn-raised btn-success\" aria-label=\"复制成功！\">复制地址<div class=\"ripple-container\"></div></button>";
-    //echo "<br><div style='color:#fff;word-wrap: break-word;word-break: normal; '>".$result."</div>";
+    if($isEchoResult == true){
+      echo "<div class=\"panel panel-default\"><div class=\"panel-heading\">解析地址</div><div id=\"copyme\" class=\"panel-body\">".$result."</div></div><button  data-clipboard-target=\"#copyme\" class=\"btn btn-raised btn-success\" aria-label=\"复制成功！\">复制地址<div class=\"ripple-container\"></div></button>";
+    }
 
 }
 ?>
@@ -255,8 +259,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </footer>
-    <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://fezvrasta.github.io/bootstrap-material-design/dist/js/material.js"></script>
+    <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap-material-design/0.5.10/js/material.min.js"></script>
     <script type="text/javascript">
       $.material.init()
       var clipboard = new Clipboard('.btn');
